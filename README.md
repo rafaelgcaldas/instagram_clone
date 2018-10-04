@@ -1,4 +1,6 @@
-# App3
+# Clone Instagram
+
+Projeto desenvolvido durante o Curso de Desenvolvimento WEB com ES6, TypeScript e Angular Criado por Jorge Sant Ana
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.2.
 
