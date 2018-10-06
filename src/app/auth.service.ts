@@ -3,7 +3,6 @@ import * as firebase from 'firebase'
 
 export class Auth {
     public cadastrarUsuario(usuario: Usuario): void {
-        console.log(usuario)
 
         firebase.auth().createUserWithEmailAndPassword(usuario.email, usuario.senha)
             .then((resposta: any) => {
@@ -17,5 +16,13 @@ export class Auth {
             .catch((error: Error) => {
                 console.log(error)
             })
+    }
+
+    public login(email: string, senha: string): void {
+        console.log("email: ", email)
+        console.log("senha: ", senha)
+        firebase.auth().signInWithEmailAndPassword(email, senha)
+            .then((resposta: any) => console.log(resposta))
+            .catch((error: Error) => console.log(error))
     }
 }
