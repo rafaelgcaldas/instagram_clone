@@ -10,10 +10,12 @@ import { AcessoComponent } from './acesso/acesso.component';
 import { BannerComponent } from './acesso/banner/banner.component';
 import { LoginComponent } from './acesso/login/login.component';
 import { CadastroComponent } from './acesso/cadastro/cadastro.component';
-import { Auth } from './auth.service';
-import { AuthGuard } from './auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
+import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-publicacao.component';
+import { Auth } from './auth.service';
+import { AuthGuard } from './auth-guard.service';
+import { Bd } from './bd.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
     LoginComponent,
     CadastroComponent,
     HomeComponent,
-    PublicacoesComponent
+    PublicacoesComponent,
+    IncluirPublicacaoComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [Auth, AuthGuard],
+  providers: [Auth, AuthGuard, Bd],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
