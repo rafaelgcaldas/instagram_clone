@@ -1,6 +1,12 @@
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase'
+import { Progresso } from './progresso.service';
 
+@Injectable()
 export class Bd {
+
+    constructor(private progressoService: Progresso){}
+
     public publicar(publicacao: any): void {
         // firebase.database().ref(`publicacoes/${btoa(publicacao.email)}`)
         //     .push({ titulo: publicacao.titulo })
@@ -11,9 +17,16 @@ export class Bd {
             .child(`imagens/${nomeImagem}`)
             .put(publicacao.imagem)
             .on(firebase.storage.TaskEvent.STATE_CHANGED,
-                (snapshot: any) => { console.log(snapshot) }, // Acompanhamento do progresso o Upload
-                (error) => { console.log(error) },
-                () => { console.log("Upload completo")} //Fianlização do processo
+                (snapshot: any) => { // Acompanhamento do progresso o Upload
+                    this.progressoService.status = "andamento"
+                    this.progressoService.estado = snapshot
+                }, 
+                (error) => { 
+                    this.progressoService.status = "erro"
+                },
+                () => {  //Fianlização do processo
+                    this.progressoService.status = "concluido"
+                }
             )
     }
 }

@@ -16,6 +16,7 @@ import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-pu
 import { Auth } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { Bd } from './bd.service';
+import { Progresso } from './progresso.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { Bd } from './bd.service';
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [Auth, AuthGuard, Bd],
+  providers: [Auth, AuthGuard, Bd, Progresso],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
