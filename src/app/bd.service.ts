@@ -36,4 +36,40 @@ export class Bd {
 
         
     }
+
+    public consultaPublicacoes(emailUsario: string): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+
+            // Consultar as publicações (database)
+            firebase.database().ref(`publicacoes/${btoa(emailUsario)}`)
+            .once('value')
+            .then((snapshot: any) => {
+
+                let publicacoes: Array<any> = []
+
+                snapshot.forEach((childSnapshot: any) => {
+
+                    let publicacao = childSnapshot.val()
+
+                    // consultar a url da imagem (storage)
+                    firebase.storage().ref()
+                        .child(`imagens/${childSnapshot.key}`)
+                        .getDownloadURL()
+                        .then((url: string) => {
+                            publicacao.urlImagem = url
+
+                            // consultar o nome do usuario
+                            firebase.database().ref(`usuario_detalhe/${btoa(emailUsario)}`)
+                                .once('value')
+                                .then((snapshot: any) => {
+                                    publicacao.nomeUsuario = snapshot.val().nome_usuario
+                                    publicacoes.push(publicacao)
+                                })
+                        })
+                })
+                resolve(publicacoes)
+            })
+        })
+    }
 }
