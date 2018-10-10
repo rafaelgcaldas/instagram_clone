@@ -17,6 +17,8 @@ import { Auth } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { Bd } from './bd.service';
 import { Progresso } from './progresso.service';
+import { ProgressoComponent } from './home/incluir-publicacao/progresso/progresso.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { Progresso } from './progresso.service';
     CadastroComponent,
     HomeComponent,
     PublicacoesComponent,
-    IncluirPublicacaoComponent
+    IncluirPublicacaoComponent,
+    ProgressoComponent
   ],
   imports: [
     BrowserModule,

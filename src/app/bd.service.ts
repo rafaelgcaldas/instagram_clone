@@ -85,7 +85,3 @@ export class Bd {
         })
     }
 }
-
-// let publicacao = childSnapshot.val()
-
-// 
