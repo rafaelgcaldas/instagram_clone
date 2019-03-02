@@ -8,9 +8,6 @@ export class Bd {
     constructor(private progressoService: Progresso){}
 
     public publicar(publicacao: any): void {
-
-        
-
         firebase.database().ref(`publicacoes/${btoa(publicacao.email)}`)
             .push({ titulo: publicacao.titulo })
             .then((resposta: any) => {

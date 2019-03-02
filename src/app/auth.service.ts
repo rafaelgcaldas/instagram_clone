@@ -26,8 +26,10 @@ export class Auth {
             })
     }
 
-    public login(email: string, senha: string): void {
-        firebase.auth().signInWithEmailAndPassword(email, senha)
+    public login(email: string, senha: string): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            firebase.auth().signInWithEmailAndPassword(email, senha)
             .then((resposta: any) => {
                 firebase.auth().currentUser.getIdToken()
                     .then((idToken: string) => {
@@ -35,9 +37,10 @@ export class Auth {
                         localStorage.setItem("idToken", idToken)
                         this.router.navigate(["/home"])
                     })
-
+                resolve(resposta)
             })
-            .catch((error: Error) => console.log(error))
+            .catch((error: Error) => reject(error))
+        })
     }
 
     public autenticado(): boolean {

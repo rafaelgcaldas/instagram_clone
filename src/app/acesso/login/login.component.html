@@ -10,6 +10,8 @@
           placeholder="E-mail"
           formControlName="email"
         >
+        <small *ngIf="form.get('email').valid && form.get('email').touched" class="form-text text-success">Ok</small>
+        <small *ngIf="!form.get('email').valid && form.get('email').touched" class="form-text text-danger">E-mail inválido</small>
       </div>
       <div class="form-group">
         <input 
@@ -18,12 +20,14 @@
           placeholder="Senha"
           formControlName="senha"
         >
+        <small *ngIf="form.get('senha').valid && form.get('senha').touched" class="form-text text-success">Ok</small>
+        <small *ngIf="!form.get('senha').valid && form.get('senha').touched" class="form-text text-danger">Senha inválida. Digite no minimo 6 caracteres</small>
       </div>
       <button type="submit" class="btn btn-primary btn-sm btn-block">Entrar</button>
     </form>
     <hr />
 
-    <p class="small text-danger text-center">O nome de usuário inserido não pertence a uma conta. Verifique seu nome de usuário e tente novamente.</p>
+    <p *ngIf="erro" class="small text-danger text-center">O nome de usuário ou a senha estão incorretos. Verifique seu nome de usuário e senha e tente novamente.</p>
 
   </div>
 </div>

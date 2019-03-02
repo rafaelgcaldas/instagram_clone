@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core'
-import { FormGroup, FormControl } from '@angular/forms'
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { Usuario } from '../usuario.model';
 import { Auth } from '../../auth.service';
 
@@ -11,10 +11,11 @@ import { Auth } from '../../auth.service';
 export class LoginComponent implements OnInit {
 
   @Output() public exibirPainel: EventEmitter<string> = new EventEmitter<string>()
+  public erro: any = ""
 
   public form: FormGroup = new FormGroup({
-    "email" : new FormControl(null),
-    'senha': new FormControl(null)
+    "email" : new FormControl(null, [Validators.required, Validators.minLength(5)]),
+    'senha': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(12)])
   })
 
   constructor(private authService: Auth) { }
@@ -27,7 +28,15 @@ export class LoginComponent implements OnInit {
   }
 
   public autenticar(): void {
-    this.authService.login( this.form.value.email, this.form.value.senha )
+    if (this.form.status === "INVALID"){
+      this.form.get("email").markAsTouched(),
+      this.form.get("senha").markAsTouched()
+    } else {
+      this.authService.login( this.form.value.email, this.form.value.senha )
+        .catch((erro: any) => {
+          this.erro = erro
+        })
+    }
   }
 
 }
